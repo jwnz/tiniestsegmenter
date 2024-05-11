@@ -1,0 +1,26 @@
+[project]
+name = "tiniestsegmenter"
+version = "0.1.0"
+description = "Compact Japanese segmenter"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [{name = "Teryn Jones"}]
+requires-python = ">=3.8"
+keywords = ["tokenizer", "NLP", "ngram", "Japanese"]
+
+
+[project.urls]
+homepage = "https://github.com/jwnz/tiniestsegmenter"
+repository = "https://github.com/jwnz/tiniestsegmenter"
+
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+[tool.maturin]
+features = ["pyo3/extension-module"]
+bindings = 'pyo3'
+python-source = "pysrc"
+
+
+

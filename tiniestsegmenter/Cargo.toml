@@ -1,0 +1,11 @@
+[package]
+name = "tiniestsegmenter"
+version = "0.1.0"
+edition = "2021"
+authors = ["Teryn Jones"]
+description = "Compact Japanese segmenter"
+homepage = "https://github.com/jwnz/tiniestsegmenter"
+repository = "https://github.com/jwnz/tiniestsegmenter"
+license-file = "LICENSE"
+readme = "README.md"
+keywords = ["tokenizer", "NLP", "ngram", "Japanese"]

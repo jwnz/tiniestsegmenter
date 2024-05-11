@@ -1,0 +1,8 @@
+debug/
+target/
+Cargo.lock
+build/
+*.egg-info
+__pycache__
+*.ipynb
+.DS_Store

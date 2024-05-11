@@ -7,11 +7,17 @@ license = {file = "LICENSE"}
 authors = [{name = "Teryn Jones"}]
 requires-python = ">=3.8"
 keywords = ["tokenizer", "NLP", "ngram", "Japanese"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Rust",
+    "Topic :: Text Editors :: Text Processing"
+]
 
 
 [project.urls]
-homepage = "https://github.com/jwnz/tiniestsegmenter"
-repository = "https://github.com/jwnz/tiniestsegmenter"
+Homepage = "https://github.com/jwnz/tiniestsegmenter"
+Repository = "https://github.com/jwnz/tiniestsegmenter"
+Issues = "https://github.com/jwnz/tiniestsegmenter/issues"
 
 [build-system]
 requires = ["maturin>=1.0,<2.0"]

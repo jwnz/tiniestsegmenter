@@ -39,7 +39,7 @@ Usage:
 use tiniestsegmenter as ts;
 
 fn main() {
-    let tokens: Result<Vec<String>, ts::TokenizeError> = ts::tokenize("ジャガイモが好きです。");
+    let tokens: Result<Vec<&str>, ts::TokenizeError> = ts::tokenize("ジャガイモが好きです。");
 }
 ```
 
@@ -53,12 +53,12 @@ Each codebase was benchmarked using the [timemachineu8j](https://www.genpaku.org
 
 | Repo    | Lang | time (ms) |
 | -------- | ------- | ------- |
-| jwnz/tiniestsegmenter  | Rust    | 14.455 |
-| jwnz/tiniestsegmenter  | Python    | 17.414 |
+| jwnz/tiniestsegmenter  | Rust    | 11.996 |
+| jwnz/tiniestsegmenter  | Python    | 14.803 |
 | nyarla/go-japanese-segmenter  | Go    | 36.869 |
 | woxtu/rust-tinysegmenter  | Rust    | 44.535 |
-| JuliaStrings/TinySegmenter.jl  | Go    | 45.691 |
-| ikawaha/tinysegmenter.go  | Julia    | 58.694 |
+| JuliaStrings/TinySegmenter.jl  | Julia    | 45.691 |
+| ikawaha/tinysegmenter.go  |  Go  | 58.694 |
 | SamuraiT/tinysegmenter  | Python    | 219.604 |
 
 System:<br>

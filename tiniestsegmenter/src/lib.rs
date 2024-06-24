@@ -19,21 +19,8 @@ fn get_ctype(ch: char) -> char {
     }
 }
 
-fn push_char(s: &mut String, w: &Weight) -> Result<(), TokenizeError> {
-    // Push the character from a Weight struct onto String s.
-    // This should never happen, but if we try to push anything
-    // other than char onto the string, we should throw an error
-    match w {
-        Weight::CHAR(ch) => {
-            s.push(*ch);
-            Ok(())
-        }
-        _ => Err(TokenizeError::InvalidChar),
-    }
-}
-
-pub fn tokenize(s: &str) -> Result<Vec<String>, TokenizeError> {
-    let mut result: Vec<String> = vec![];
+pub fn tokenize<'a>(s: &'a str) -> Result<Vec<&'a str>, TokenizeError> {
+    let mut result: Vec<&'a str> = vec![];
 
     // If the input string is empty, we just return the empty Vec,
     // otherwise we can continue to tokenize the string as usual.
@@ -50,10 +37,16 @@ pub fn tokenize(s: &str) -> Result<Vec<String>, TokenizeError> {
             .chain([Weight::CHAR('O'), Weight::CHAR('O'), Weight::CHAR('O')])
             .collect();
 
-        let mut word = String::new();
-        push_char(&mut word, &seg[3])?;
-
         let mut p = [Weight::CHAR('U'), Weight::CHAR('U'), Weight::CHAR('U')];
+
+        // Indexing a string by doing s[0..3] gives you the first three bytes of the string.
+        // Characters in rust are unicode scalar values, so indexing like so is undesireable
+        // since you might accidently index the middle byte of a unicode character.
+        // To deal with this, we need to keep track of the index and size of each character.
+        let char_byte_pos: Vec<usize> = s.char_indices().map(|(i, _)| i).collect();
+        let char_lens: Vec<usize> = s.chars().map(|ch| ch.len_utf8()).collect();
+
+        let mut char_offset = 4;
 
         for i in 4..seg.len() - 3 {
             let mut score = BIAS;
@@ -107,16 +100,17 @@ pub fn tokenize(s: &str) -> Result<Vec<String>, TokenizeError> {
             p.swap(0, 1);
             p.swap(1, 2);
             if score > 0 {
-                result.push(word.clone());
-                word.clear();
+                result.push(
+                    &s[char_byte_pos[char_offset - 4]..char_byte_pos[i - 4] + char_lens[i - 4]],
+                );
+                char_offset = i + 1;
+
                 p[2] = Weight::CHAR('B');
             } else {
                 p[2] = Weight::CHAR('O');
             }
-            push_char(&mut word, &seg[i])?;
         }
-
-        result.push(word.clone());
+        result.push(&s[char_byte_pos[char_offset - 4]..]);
     }
     Ok(result)
 }

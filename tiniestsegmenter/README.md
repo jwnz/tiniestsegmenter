@@ -13,7 +13,7 @@ Add the crate to your project: `cargo add tiniestsegmenter`.
 use tiniestsegmenter as ts;
 
 fn main() {
-    let tokens: Result<Vec<String>, ts::TokenizeError> = ts::tokenize("ジャガイモが好きです。");
+    let tokens: Result<Vec<&str>, ts::TokenizeError> = ts::tokenize("ジャガイモが好きです。");
 }
 ```
 

@@ -1,6 +1,6 @@
 [project]
 name = "tiniestsegmenter"
-version = "0.2.0"
+version = "0.3.0"
 description = "Compact Japanese segmenter"
 readme = "README.md"
 license = {file = "LICENSE"}

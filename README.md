@@ -39,7 +39,7 @@ Usage:
 use tiniestsegmenter as ts;
 
 fn main() {
-    let tokens: Result<Vec<&str>, ts::TokenizeError> = ts::tokenize("ジャガイモが好きです。");
+    let tokens: Vec<&str> = ts::tokenize("ジャガイモが好きです。");
 }
 ```
 

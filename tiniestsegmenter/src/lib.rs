@@ -1,11 +1,6 @@
 mod weights;
 use weights::*;
 
-#[derive(Debug)]
-pub enum TokenizeError {
-    InvalidChar,
-}
-
 #[rustfmt::skip]
 fn get_ctype(ch: char) -> char {
     match ch {
@@ -19,7 +14,7 @@ fn get_ctype(ch: char) -> char {
     }
 }
 
-pub fn tokenize<'a>(s: &'a str) -> Result<Vec<&'a str>, TokenizeError> {
+pub fn tokenize<'a>(s: &'a str) -> Vec<&'a str> {
     let mut result: Vec<&'a str> = vec![];
 
     // If the input string is empty, we just return the empty Vec,
@@ -112,7 +107,7 @@ pub fn tokenize<'a>(s: &'a str) -> Result<Vec<&'a str>, TokenizeError> {
         }
         result.push(&s[char_byte_pos[char_offset - 4]..]);
     }
-    Ok(result)
+    result
 }
 
 #[cfg(test)]
@@ -122,7 +117,20 @@ mod tests {
     #[test]
     #[rustfmt::skip]
     fn test_tokenize() {
-        assert_eq!(tokenize("キラーアプリを考える").unwrap(), ["キラーアプリ", "を", "考える"]);
-        assert_eq!(tokenize("TinySegmenterはJavascriptだけ書かれた極めてコンパクトな日本語分かち書きソフトウェアです。").unwrap(), ["TinySegmenter", "は", "Javascript", "だけ", "書か", "れ", "た", "極め", "て", "コンパクト", "な", "日本", "語分", "かち", "書き", "ソフトウェア", "です", "。"]);
+        assert_eq!(tokenize("キラーアプリを考える"), ["キラーアプリ", "を", "考える"]);
+        assert_eq!(tokenize("TinySegmenterはJavascriptだけ書かれた極めてコンパクトな日本語分かち書きソフトウェアです。"), ["TinySegmenter", "は", "Javascript", "だけ", "書か", "れ", "た", "極め", "て", "コンパクト", "な", "日本", "語分", "かち", "書き", "ソフトウェア", "です", "。"]);
+    }
+
+    #[test]
+    #[rustfmt::skip]
+    fn test_space() {
+        let res:  Vec<&str> = vec![];
+        assert_eq!(tokenize(""), res);
+
+        let res:  Vec<&str> = vec![" "];
+        assert_eq!(tokenize(" "), res);
+
+        let res:  Vec<&str> = vec![" "," "," "];
+        assert_eq!(tokenize("   "), res);
     }
 }
